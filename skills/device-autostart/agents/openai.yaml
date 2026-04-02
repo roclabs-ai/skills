@@ -1,0 +1,4 @@
+interface:
+  display_name: "Device Autostart"
+  short_description: "Deploy current project and switch device autostart"
+  default_prompt: "Use $device-autostart to deploy the current project to an adb-connected TinaLinux device and replace the existing autostart program."
