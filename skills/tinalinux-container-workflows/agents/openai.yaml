@@ -1,0 +1,4 @@
+interface:
+  display_name: "TinaLinux Container Workflows"
+  short_description: "在 Docker 或 Apple Container 中使用 TinaLinux"
+  default_prompt: "Use $tinalinux-container-workflows to inspect or run the TinaLinux container workflow for this project."

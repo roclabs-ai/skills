@@ -18,6 +18,7 @@ skills/
 | Skill | Description |
 |-------|-------------|
 | [device-autostart](skills/device-autostart/) | Deploy current project to an adb-connected TinaLinux device and configure it as the boot-time autostart app |
+| [tinalinux-container-workflows](skills/tinalinux-container-workflows/) | Use Docker/OrbStack or Apple Container for verified T113 TinaLinux/Qt cross-build workflows |
 
 ## Adding a Skill
 
