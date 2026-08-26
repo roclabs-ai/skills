@@ -18,12 +18,13 @@ Use the project’s verified linux/arm64 Tina Qt image and canonical wrappers wi
 ## Resolve context before acting
 
 1. Locate the current project and read its `AGENTS.md` files.
-2. Resolve `device-platform`, the external business app, and the sibling `tinalinux-sdk-doc` dynamically. Do not reuse stale `/Users/roc/Documents/...` examples when the actual workspace is under `/Volumes/Extend/...`.
+2. Resolve `device-platform`, the external business app, and the sibling `tinalinux-sdk-doc` dynamically from the actual workspace. Do not assume the workspace lives under any fixed volume or home directory; paths in examples are snapshots, not guarantees.
 3. Verify referenced paths exist, especially the external app and OCI archive.
 4. Read [container-commands.md](references/container-commands.md) before running or proposing exact runtime commands.
 5. Inspect the current canonical wrapper before executing it because its supported variables are the source of truth:
    - `device-platform/scripts/arm/package-device-app-usb-release.sh`
    - `device-platform/scripts/arm/prepare-device-app-root.sh`
+   - `device-platform/scripts/build-platform-runtime.sh`
    - `tinalinux-sdk-doc/scripts/t113-docker-build.sh`
 6. When using `t113-docker-build.sh` with the current arm64 workflow, explicitly override both `--image` and `--platform`; that helper still defaults to the legacy amd64 image.
 
@@ -47,12 +48,12 @@ Prefer Docker/OrbStack for project work. Use Apple Container when the user reque
 2. If execution was requested, start only the chosen runtime. Do not start both.
 3. Load/import the image only if absent. Let the project packaging wrapper perform its tested Docker OCI import path; do not invent a second import implementation.
 4. Prefer the highest-level wrapper that matches the intent. Run business-app wrappers from the business app repository or set `APP_REPO` explicitly.
-5. Keep USB writing on the host. Do not expose a physical USB device to the build container.
+5. The workflow ends at the exported signed package. Writing it to a USB drive is out of scope; never expose a physical USB device to the build container.
 6. Validate the runtime and output architecture before reporting success.
 
 ## Guard side effects
 
-- Do not write or eject a USB drive unless explicitly requested. Omit `USB_MOUNT`, `USB_DRIVE`, and `WRITE_USB=1` otherwise.
+- Never write or eject a USB drive. This workflow stops at the signed package; do not set USB-writing variables such as `USB_MOUNT`, `USB_DRIVE`, `WRITE_USB`, or `CONFIRM`. The user copies the package to physical media themselves.
 - Do not deploy through ADB unless explicitly requested; packaging and deployment are separate workflows.
 - Preserve the platform signing key. Do not enable `GENERATE_DEV_KEY=1` unless the user explicitly asks for a disposable development package.
 - Do not use `--privileged`, mount the Docker socket, or expose host devices for ordinary compilation.
@@ -68,6 +69,6 @@ Check all applicable layers:
 3. Target: a smoke binary or app binary is 32-bit ARM, not aarch64 and not x86-64.
 4. ABI: dynamic artifacts target musl, not glibc.
 5. Workflow output: the expected build directory, staged root, or signed `update-package-*` exists on the host.
-6. Release safety: signing checks pass and no USB/ADB mutation occurred unless requested.
+6. Release safety: signing checks pass and no USB/ADB mutation occurred.
 
 Report the selected runtime, image reference, resolved app path, exact wrapper used, output path, architecture evidence, and any unverified boundary.

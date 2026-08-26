@@ -1,15 +1,15 @@
 # Project paths and container commands
 
-Load this reference when exact TinaLinux container commands are needed. Resolve paths first; the values below are verified defaults, not permission to assume missing directories exist.
+Load this reference when exact TinaLinux container commands are needed. Image-internal facts below are fixed; every host-side path and app-specific value must be resolved from the current workspace first.
 
-## Verified defaults
+## Fixed image facts
+
+These values are burned into the image and are identical for every user of it:
 
 ```text
-device-platform: /Volumes/Extend/roc-workspace/device-platform
-SDK docs/tools:   /Volumes/Extend/roc-workspace/tinalinux-sdk-doc
 Docker image:     tina-qt:5.12.9-cmake3.22-arm64
 Apple image:      docker.io/library/tina-qt:5.12.9-cmake3.22-arm64
-OCI archive:      /Volumes/Extend/roc-workspace/tinalinux-sdk-doc/docker-images/arm64-rebuild/tina-qt-5.12.9-cmake3.22-arm64.oci.tar
+OCI archive name: tina-qt-5.12.9-cmake3.22-arm64.oci.tar
 Tina path:        /home/meetyoo/t113/Tina-Linux
 Toolchain bin:    /home/meetyoo/t113/Tina-Linux/prebuilt/gcc/linux-arm64/arm/toolchain-sunxi-musl/toolchain/bin
 Qt root:          /home/meetyoo/t113/QT/staging_dir/qt-everywhere-src-5.12.9/arm-qt
@@ -18,13 +18,23 @@ Target staging:   /home/meetyoo/t113/Tina-Linux/out/t113-bingpi_md70/staging_dir
 
 The arm64 image contains enough Tina paths for app cross-compilation but was assembled from the toolchain, Qt target/host files, and target staging directory. It is not proof that full Tina firmware sources are present.
 
+## Workspace variables
+
+Everything else is per-workspace state, not part of this skill. Resolve each value from the current project's `AGENTS.md` and checkout before running commands; if a value cannot be resolved, ask the user instead of guessing:
+
+- `DEVICE_PLATFORM` — the `device-platform` repository checkout
+- `SDK_DOC` — the `tinalinux-sdk-doc` repository checkout
+- `APP_REPO` — the external business app repository
+- `OCI` — the image archive, normally `$SDK_DOC/docker-images/arm64-rebuild/tina-qt-5.12.9-cmake3.22-arm64.oci.tar`
+- the business app's main `.pro` file and main binary name
+
 ## Read-only preflight
 
-Resolve variables without changing runtime state:
+With the workspace variables resolved, check everything without changing runtime state:
 
 ```bash
-DEVICE_PLATFORM=/Volumes/Extend/roc-workspace/device-platform
-SDK_DOC=/Volumes/Extend/roc-workspace/tinalinux-sdk-doc
+DEVICE_PLATFORM=/path/to/device-platform
+SDK_DOC=/path/to/tinalinux-sdk-doc
 OCI="$SDK_DOC/docker-images/arm64-rebuild/tina-qt-5.12.9-cmake3.22-arm64.oci.tar"
 APP_REPO=/path/to/business-app
 
@@ -163,13 +173,13 @@ The helper still defaults to `registry.roclabs.ai/tina-qt:latest` on `linux/amd6
 
 Use `--pro`, `--mode`, `--writable`, `--build-dir`, and `--` only after reading `--help` or `Docs/20-Docker交叉编译/01-快速开始与脚本入口.md`.
 
-If auto-detection reports multiple `.pro` files, select the business app explicitly. For the current `lft-water-232` checkout, the verified preview is:
+If auto-detection reports multiple `.pro` files, select the business app's main `.pro` explicitly with `--pro`:
 
 ```bash
 "$SDK_DOC/scripts/t113-docker-build.sh" \
   --image tina-qt:5.12.9-cmake3.22-arm64 \
   --platform linux/arm64 \
-  --pro lft-water-screen.pro \
+  --pro <main-app>.pro \
   --print \
   "$APP_REPO"
 ```
@@ -181,12 +191,12 @@ This path currently supports Docker only:
 ```bash
 APP_REPO="$APP_REPO" \
 OUTPUT_ROOT="$APP_REPO/dist/dev-staged" \
-MAIN_BINARY=water \
+MAIN_BINARY=<main-binary> \
 BUILD=1 \
 sh "$DEVICE_PLATFORM/scripts/arm/prepare-device-app-root.sh"
 ```
 
-Replace `water` with the project’s real main binary. Keep `OUTPUT_ROOT` under `APP_REPO`.
+Set `MAIN_BINARY` to the business app's real main binary name (resolve it from the app's project file; ask the user if ambiguous). Keep `OUTPUT_ROOT` under `APP_REPO`.
 
 ## Build and sign an update package
 
@@ -207,14 +217,7 @@ ARM_TINA_QT_IMAGE=docker.io/library/tina-qt:5.12.9-cmake3.22-arm64 \
 sh "$DEVICE_PLATFORM/scripts/arm/package-device-app-usb-release.sh"
 ```
 
-These commands build and sign but do not write USB by default. Only add `USB_MOUNT=/Volumes/UPDATE CONFIRM=1` after the user explicitly requests physical USB replacement.
-
-For an interactive guided flow:
-
-```bash
-cd "$APP_REPO"
-sh "$DEVICE_PLATFORM/scripts/arm/guided-package-device-app-usb-release.sh"
-```
+These commands stop at the signed `update-package-*` in the app repository's output directory — that is the end of this workflow. Do not set USB-writing variables (`USB_MOUNT`, `CONFIRM`), and do not use the interactive `guided-package-device-app-usb-release.sh`, whose guided flow includes USB replacement; the user copies the package to physical media themselves.
 
 ## Verify a generated target binary
 
