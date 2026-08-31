@@ -1,12 +1,12 @@
-# 前端设计方向
+# Frontend Design Directions
 
-适用：为新功能或新页面产出前端设计方案。
+Applies when: producing frontend design proposals for a new feature or page.
 
-执行以下指令（原文）：
+Execute the following instruction (verbatim):
 
-> 前端设计：根据功能需求生成 4 个差异明显的设计方向，分别制作成响应式 HTML。每个方案不能只是换颜色，必须在布局、视觉语言和交互方式上明显不同
+> Frontend design: based on the feature requirements, generate 4 clearly distinct design directions, each built as a responsive HTML page. The proposals must not differ only in color — each must be clearly different in layout, visual language, and interaction model.
 
-要点：
+Key points:
 
-- 固定产出 4 个方向，每个方向单独一份可直接打开的响应式 HTML。
-- 差异必须体现在布局、视觉语言、交互方式三个层面；仅换配色不算一个方向。
+- Always produce exactly 4 directions, each as a standalone responsive HTML file that can be opened directly.
+- Differences must show up on all three levels — layout, visual language, and interaction model; a color swap alone does not count as a direction.

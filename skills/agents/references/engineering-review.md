@@ -1,108 +1,108 @@
-# 全代码库工程质量 Review
+# Full-Codebase Engineering Quality Review
 
-适用：对整个项目做一次全面的工程质量审查（非 diff review、非单纯 bug 检查或安全扫描）。
+Applies when: performing a comprehensive engineering quality review of the whole project (not a diff review, not a plain bug hunt, not a security scan).
 
-执行以下指令（原文）：
+Execute the following instruction (verbatim):
 
-> 对整个代码库进行一次全面的 Engineering Quality Review。
+> Perform a comprehensive Engineering Quality Review of the entire codebase.
 >
-> 不要做 Git diff review，不要只检查 bug，不要只做安全扫描。请把整个项目当成一个需要长期维护的商业级软件进行审查。
+> Do not do a Git diff review, do not only look for bugs, and do not only do a security scan. Treat the whole project as commercial-grade software that must be maintained long-term.
 >
-> 请先理解整个代码库：
-> - 阅读项目结构、配置文件、README、核心入口
-> - 识别使用的语言、框架、主要依赖和技术栈
-> - 理解模块职责、数据流、调用关系和整体架构
-> - 阅读关键模块和代表性代码后再给出结论
+> First understand the entire codebase:
+> - Read the project structure, config files, README, and core entry points
+> - Identify the languages, frameworks, major dependencies, and tech stack
+> - Understand module responsibilities, data flow, call relationships, and overall architecture
+> - Read the key modules and representative code before drawing conclusions
 >
-> 请以资深 Staff Engineer / Principal Engineer 的标准进行 Review。
+> Review to the standard of a senior Staff Engineer / Principal Engineer.
 >
-> 重点评价：
+> Focus areas:
 >
-> 1. 代码质量
-> - 代码是否简洁、清晰、容易理解
-> - 是否存在重复代码
-> - 是否存在无意义封装
-> - 是否存在过度设计
-> - 是否存在为了抽象而抽象的问题
-> - 是否存在可以更简单实现的地方
-> - 是否符合该语言生态的推荐写法
+> 1. Code quality
+> - Is the code concise, clear, and easy to understand
+> - Is there duplicated code
+> - Are there meaningless wrappers
+> - Is there over-engineering
+> - Is there abstraction for abstraction's sake
+> - Are there places that could be implemented more simply
+> - Does it follow the recommended idioms of the language's ecosystem
 >
-> 2. 现代工程实践
-> - 是否使用当前推荐的语言特性和现代写法
-> - 是否存在过时 API、旧模式或不推荐实践
-> - 是否可以利用框架能力减少自定义代码
-> - 是否存在应该重构为现代写法的部分
+> 2. Modern engineering practices
+> - Does it use currently recommended language features and modern idioms
+> - Are there outdated APIs, legacy patterns, or discouraged practices
+> - Could framework capabilities replace custom code
+> - Are there parts that should be refactored to modern idioms
 >
-> 3. 第三方库和生态使用
-> - 是否重复实现了已有成熟库解决的问题
-> - 是否应该使用社区成熟方案而不是自己维护代码
-> - 当前使用的库是否符合生态主流实践
-> - 是否存在自研方案导致维护成本增加
+> 3. Third-party libraries and ecosystem usage
+> - Does it reimplement problems already solved by mature libraries
+> - Should mature community solutions replace self-maintained code
+> - Do the libraries in use match mainstream ecosystem practice
+> - Do home-grown solutions increase maintenance cost
 >
-> 4. 架构设计
-> - 模块职责是否清晰
-> - 依赖方向是否合理
-> - 是否存在严重耦合
-> - 是否存在循环依赖
-> - 是否存在错误抽象
-> - 是否容易随着项目规模扩大而腐化
-> - 是否符合长期演进需求
+> 4. Architecture
+> - Are module responsibilities clear
+> - Are dependency directions sensible
+> - Is there severe coupling
+> - Are there circular dependencies
+> - Are there wrong abstractions
+> - Will it rot as the project grows
+> - Does it fit long-term evolution needs
 >
-> 5. 可维护性
-> - 新开发者是否容易理解代码
-> - 命名是否准确
-> - API 设计是否符合习惯
-> - 类型设计是否合理
-> - 错误处理是否统一
-> - 配置管理是否合理
-> - 日志和可观测性是否合理
+> 5. Maintainability
+> - Can a new developer understand the code easily
+> - Is naming accurate
+> - Is the API design idiomatic
+> - Is the type design sound
+> - Is error handling consistent
+> - Is configuration management sensible
+> - Are logging and observability sensible
 >
-> 6. 工程规范
-> - 测试结构是否合理
-> - 测试覆盖方式是否符合最佳实践
-> - 是否存在难以测试的设计
-> - 是否存在隐藏技术债
-> - 是否存在未来容易产生问题的实现方式
+> 6. Engineering standards
+> - Is the test structure sensible
+> - Does test coverage follow best practices
+> - Are there designs that are hard to test
+> - Is there hidden technical debt
+> - Are there implementations likely to cause future problems
 >
-> 7. 简洁性原则
-> 重点检查：
-> - 能否删除代码
-> - 能否使用标准能力替代复杂实现
-> - 能否使用成熟库替代自定义实现
-> - 能否降低代码和维护复杂度
+> 7. Simplicity principle
+> Focus on:
+> - Can code be deleted
+> - Can standard capabilities replace complex implementations
+> - Can mature libraries replace custom implementations
+> - Can code and maintenance complexity be reduced
 >
-> 请不要为了凑问题数量而提出无意义建议。
+> Do not raise meaningless issues just to pad the count.
 >
-> 如果代码已经是合理的，请明确说明为什么合理。
+> If the code is already sound, explicitly explain why it is sound.
 >
-> 最终输出：
+> Final output:
 >
-> ## 1. 项目整体理解
-> 说明你理解的架构、模块关系和主要设计。
+> ## 1. Overall Project Understanding
+> Describe the architecture, module relationships, and main design as you understand them.
 >
-> ## 2. 工程质量评价
-> 评价当前代码是否达到优秀工程团队标准。
+> ## 2. Engineering Quality Assessment
+> Assess whether the current code meets the standard of an excellent engineering team.
 >
-> ## 3. 做得好的地方
-> 列出值得保留的设计。
+> ## 3. What Is Done Well
+> List designs worth keeping.
 >
-> ## 4. 必须改进的问题
-> 列出影响长期维护、扩展和质量的问题。
+> ## 4. Problems That Must Be Fixed
+> List problems that hurt long-term maintenance, extension, and quality.
 >
-> ## 5. 推荐优化方向
-> 给出更符合现代最佳实践的方案。
+> ## 5. Recommended Improvements
+> Give approaches better aligned with modern best practices.
 >
-> ## 6. 技术债分析
-> 指出已经存在或正在形成的技术债。
+> ## 6. Technical Debt Analysis
+> Point out technical debt that already exists or is forming.
 >
-> ## 7. 优先级排序
-> 按照 P0、P1、P2、P3 分类。
+> ## 7. Priority Ranking
+> Classify as P0, P1, P2, P3.
 >
-> 每个问题必须包含：
-> - 文件或目录位置
-> - 当前设计的问题
-> - 为什么这是问题
-> - 推荐改进方式
-> - 是否值得立即修改
+> Every problem must include:
+> - File or directory location
+> - What is wrong with the current design
+> - Why it is a problem
+> - Recommended fix
+> - Whether it is worth fixing immediately
 >
-> 不要直接修改代码，只输出 Review 结果。
+> Do not modify code directly; output the review results only.

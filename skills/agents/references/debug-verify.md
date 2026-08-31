@@ -1,13 +1,13 @@
-# 问题定位与修复验证
+# Problem Diagnosis and Verified Fix
 
-适用：界面或程序出现问题，需要定位原因并修复。
+Applies when: the UI or program misbehaves and the cause must be located and fixed.
 
-执行以下指令（原文）：
+Execute the following instruction (verbatim):
 
-> 分析当前界面和运行状态，定位导致问题的代码原因，修复后重新运行验证，并检查是否存在类似问题。
+> Analyze the current UI and runtime state, locate the code-level cause of the problem, re-run and verify after fixing, and check whether similar problems exist elsewhere.
 
-要点：
+Key points:
 
-- 先分析界面与运行状态，找到代码层面的根因，不要凭猜测改代码。
-- 修复后必须重新运行验证，确认问题真正消除。
-- 修完当前问题后，主动排查代码库中是否存在同类问题，一并处理。
+- Analyze the UI and runtime state first and find the root cause at the code level; never change code based on guesses.
+- After the fix, you must re-run and verify that the problem is truly gone.
+- Once the current problem is fixed, proactively scan the codebase for the same class of problem and fix those too.

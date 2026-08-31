@@ -1,43 +1,45 @@
 ---
-name: agent-rules
-description: Behavior rules and reusable prompt playbooks that govern how the agent works on a project. Global disciplines (no over-engineering, fail-close, clean-break, comment/PR hygiene, reuse open-source, stress testing) always apply; task playbooks cover UI review, bug fixing with verification, divergent frontend design, full engineering quality review, and offline model knowledge checks. Use when the user says "检查界面", "定位问题", "前端设计方向", "工程质量 review", "engineering quality review", "agent rules", or asks the agent to follow project working rules.
+name: agents
+description: Behavior rules and reusable prompt playbooks that govern how the agent works on a project. Global disciplines (no over-engineering, fail-close, clean-break, comment/PR hygiene, reuse open-source, stress testing) always apply; task playbooks cover UI review, bug fixing with verification, divergent frontend design, full engineering quality review, offline model knowledge checks, critical non-sycophantic responses, and plain-language answers. Use when the user says "检查界面", "定位问题", "前端设计方向", "工程质量 review", "engineering quality review", "不要附和我", "说人话", "agents", or asks the agent to follow project working rules.
 ---
 
-# Agent Rules
+# Agents
 
-约束 agent 在项目中的工作行为。分两层：
+Constrains how the agent works on a project. Two layers:
 
-1. **全局纪律**：写在本文件，任何任务都始终生效。
-2. **任务 playbook**：按任务类型读取 `references/` 中对应文件，其中的提示词为原文，须严格执行。
+1. **Global disciplines**: written in this file, always in effect for every task.
+2. **Task playbooks**: load the matching file under `references/` by task type; the prompts inside are verbatim and must be executed exactly as written.
 
-## 全局纪律
+## Global Disciplines
 
-### 反过度设计
+### No Over-Engineering
 
-别什么都想着兼容，别什么异常都偷偷兜底，别为了安全无限加 fallback 和 legacy path。
+Do not try to stay compatible with everything, do not silently swallow every exception, and do not pile up fallbacks and legacy paths in the name of safety.
 
-该失败的时候就明确失败，该切掉旧设计的时候就彻底切掉。
+Fail explicitly when failure is the right outcome; cut old designs away completely when they should be cut.
 
-很多过度设计，本质上就是不敢 fail-close，也不敢 clean-break。
+Most over-engineering is, at its core, a refusal to fail-close and a refusal to clean-break.
 
-### 注释与 PR 纪律
+### Comment and PR Hygiene
 
-注释只写 non-obvious reason，禁止保留 intermediate attempts；PR 描述只写最终行为，diff 里看不出来的取舍以及从未合入的状态一律不要提及
+Comments only explain non-obvious reasons; never keep intermediate attempts. PR descriptions only state the final behavior — trade-offs invisible in the diff and states that were never merged must not be mentioned.
 
-### 开发实践
+### Development Practices
 
-1、开发实现：如果GitHub / npm 上有成熟的开源方案，优先复用，不要重复造轮子
-2、不要把内部的需求作为前端的文案写出来
-3、开发后测试：对整个项目进行一次压力测试，如果发现问题直接修复，直到验证通
+1. Implementation: if a mature open-source solution exists on GitHub / npm, prefer reusing it; do not reinvent the wheel.
+2. Never surface internal requirements as user-facing frontend copy.
+3. Post-development testing: stress test the whole project; fix any problem found immediately and repeat until it passes verification.
 
-## 任务 Playbook
+## Task Playbooks
 
-按当前任务读取对应文件，不要一次全部加载：
+Load the file matching the current task; do not load them all at once:
 
-| 任务 | 文件 |
+| Task | File |
 |------|------|
-| 检查现有界面并优化 | [references/ui-review.md](references/ui-review.md) |
-| 定位并修复运行问题 | [references/debug-verify.md](references/debug-verify.md) |
-| 新功能的前端设计方向 | [references/frontend-design.md](references/frontend-design.md) |
-| 全代码库工程质量 Review | [references/engineering-review.md](references/engineering-review.md) |
-| 离线核验模型内部知识 | [references/model-knowledge-check.md](references/model-knowledge-check.md) |
+| Review and optimize an existing UI | [references/ui-review.md](references/ui-review.md) |
+| Locate and fix a runtime problem | [references/debug-verify.md](references/debug-verify.md) |
+| Frontend design directions for a new feature | [references/frontend-design.md](references/frontend-design.md) |
+| Full-codebase engineering quality review | [references/engineering-review.md](references/engineering-review.md) |
+| Offline model knowledge check (ChatGPT/Codex only, time-sensitive probes) | [references/model-knowledge-check.md](references/model-knowledge-check.md) |
+| Critical, non-sycophantic responses | [references/critical-thinking.md](references/critical-thinking.md) |
+| Plain-language answers | [references/plain-language.md](references/plain-language.md) |

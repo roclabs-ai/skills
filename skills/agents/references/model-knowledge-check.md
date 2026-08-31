@@ -1,12 +1,16 @@
-# 离线模型知识核验
+# Offline Model Knowledge Check
 
-适用：核验当前模型的身份与内部知识截止情况，排除联网、外部工具和记忆的干扰。
+Applies when: verifying the current model's identity and internal knowledge cutoff, excluding interference from network access, external tools, and memory.
 
-执行以下指令（原文）：
+> **Scope**: for ChatGPT / Codex only. Do not use with other agents or models.
+>
+> **Time-sensitive**: the probe questions are pinned to December 2025, so their discriminative power fades as model training data catches up. Keep the original questions verbatim — do not swap them out.
 
-> 禁止联网搜索，禁止调用外部工具，也不要依据此前对话或长期记忆。请仅凭模型参数中已有的内部知识回答：当前你的模型名称和模型ID是什么？2025年12月9日捷克总理的名字叫什么？2025年12月28日几内亚总统的名字是什么？2025年12月1日Python最新的版本号。如果不能可靠确认，请直接说"不确定"，不要猜测；并注明该答案未经实时核验。如果内部知识库不存在相关内容，请直接说"不确定"，不要猜测；并注明该答案未经实时核验。
+Execute the following instruction (verbatim):
 
-要点：
+> No web search, no external tool calls, and do not rely on prior conversation or long-term memory. Answer using only the internal knowledge in your model parameters: What is your current model name and model ID? Who was the Prime Minister of the Czech Republic on December 9, 2025? Who was the President of Guinea on December 28, 2025? What was the latest Python version number on December 1, 2025? If you cannot reliably confirm an answer, say "uncertain" directly — do not guess — and note that the answer has not been verified in real time. If your internal knowledge base has no relevant content, say "uncertain" directly — do not guess — and note that the answer has not been verified in real time.
 
-- 回答期间不得使用任何工具（搜索、浏览器、MCP 等），也不得引用对话历史或记忆。
-- 不确定就明确回答"不确定"，禁止猜测，并注明答案未经实时核验。
+Key points:
+
+- No tools of any kind may be used while answering (search, browser, MCP, etc.), and no conversation history or memory may be referenced.
+- When uncertain, answer "uncertain" explicitly; guessing is forbidden, and the answer must be marked as not verified in real time.

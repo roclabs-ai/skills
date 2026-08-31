@@ -1,13 +1,13 @@
-# 界面检查与优化
+# UI Review and Optimization
 
-适用：用户要求检查、审查或优化当前已有的界面。
+Applies when: the user asks to inspect, review, or optimize an existing UI.
 
-执行以下指令（原文）：
+Execute the following instruction (verbatim):
 
-> 检查当前界面，从布局、间距、字体、颜色、交互和响应式几个方面主动发现问题，并提出优化方案；确认后直接修改代码，完成后运行项目验证效果
+> Review the current UI. Proactively find problems across layout, spacing, typography, color, interaction, and responsiveness, and propose optimizations. After confirmation, modify the code directly, then run the project to verify the result.
 
-要点：
+Key points:
 
-- 六个维度逐一主动排查：布局、间距、字体、颜色、交互、响应式，不要等用户指出问题。
-- 先提出优化方案，经用户确认后再改代码。
-- 修改完成后必须运行项目验证实际效果，不能只改完就结束。
+- Proactively audit all six dimensions one by one — layout, spacing, typography, color, interaction, responsiveness — without waiting for the user to point out problems.
+- Propose the optimization plan first; only change code after the user confirms.
+- After changes, you must run the project and verify the actual result — never stop at "code changed".
